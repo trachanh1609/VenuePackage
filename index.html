@@ -1,0 +1,505 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>MP Prototype</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://use.fontawesome.com/e77493e47e.js"></script>
+  <link rel="stylesheet" href="src/css/main.css">
+  <link rel="stylesheet" href="lib/animate.css">
+  <script src="lib/vue.js"></script>
+
+  <!-- Vue Element http://element.eleme.io/#/en-US/component/installation -->
+  <!-- import CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+  <!-- import JavaScript -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <!-- Default of Element UI is Chinese, Setting to EN below  -->
+  <script src="https://unpkg.com/element-ui/lib/umd/locale/en.js"></script>
+  <script>
+    ELEMENT.locale(ELEMENT.lang.en)
+  </script>
+  <!-- Add this after vue.js -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-strap/1.1.37/vue-strap.js"></script> -->
+
+</head>
+
+<body>
+  <div id="mp-container">
+    <div class="col col-md-12 header">
+      <img id="heroImg" src="assets/HeroImg1024.png" alt="">
+    </div>
+    <div id="app" class="col col-md-12">
+      <search-input-box></search-input-box>
+      <search-result></search-result>
+
+    </div>
+    <!-- End of app -->
+
+  </div>
+  <!-- End of Container -->
+
+
+
+
+
+
+
+
+  <div id="templates"></div>
+
+  <!-- Templates are below -->
+
+  <script type="text/x-template" id="search-input-box-template">
+
+    <div id="search-input-box" class="box-shadow">
+      <div class="row row-1">
+        <div class="search-elem col-md-3">
+          <h4 class="search-elem-header">
+            Date
+            <!-- <span>{{(typeof meetingDate== 'object')? meetingDate.toDateString() : ''}}</span> -->
+          </h4>
+          <!-- <div class="search-elem-input"><h4 class="text-center inline no-margin">Thu, Nov 12 2017</h4> <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i></div> -->
+          <el-date-picker
+            v-model="meetingDate"
+            type="date"
+            format="dd.MM.yyyy"
+            placeholder="Pick a day">
+          </el-date-picker>
+        </div>
+
+        <div class="search-elem col-md-3">
+          <h4 class="search-elem-header">
+            Time
+            <!-- <span>{{meetingTime}}</span> -->
+          </h4>
+          <!-- <div class="search-elem-input"><h4 class="text-center inline no-margin">9.00</h4> <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i></div> -->
+          <el-time-select
+            v-model="meetingTime"
+            :picker-options="{
+              start: '08:00',
+              step: '00:30',
+              end: '19:00'
+            }"
+            placeholder="Meeting begins at">
+          </el-time-select>
+        </div>
+
+        <div class="search-elem col-md-2">
+          <h4 class="search-elem-header">Meeting Length</h4>
+          <!-- <div class="search-elem-input"><h4 class="text-center inline no-margin">2h</h4> <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i></div> -->
+          <el-select v-model="meetingLength" clearable placeholder="Select">
+            <el-option
+              v-for="item in meetingLengthOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+
+        <div class="search-elem col-md-2">
+          <h4 class="search-elem-header">Seating order</h4>
+          <!-- <div class="search-elem-input"><h4 class="text-center inline no-margin">Any kind</h4> <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i></div> -->
+          <el-select v-model="seatingOrder" clearable placeholder="Select">
+            <el-option
+              v-for="item in seatingOrderOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+
+        <div class="search-elem col-md-2">
+          <h4 class="search-elem-header">Persons</h4>
+          <!-- <div>
+            <span class="fa-stack mp-text-color">
+              <i class="fa fa-square fa-stack-2x"></i>
+              <i class="fa fa-minus fa-stack-1x fa-inverse"></i>
+            </span> 10
+            <span class="fa-stack mp-text-color">
+              <i class="fa fa-square fa-stack-2x"></i>
+              <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+            </span>
+          </div> -->
+          <el-input-number v-model="persons" @change="handleChange" :min="1" ></el-input-number>
+        </div>
+
+      </div>
+
+      <div class="row row-2">
+
+        <div class="search-elem col-md-3">
+          <h4 class="search-elem-header">
+            <!-- <input type="checkbox"> -->
+            <el-checkbox v-model="coffee">Coffee/Tea break</el-checkbox>
+            </h4>
+        </div>
+
+        <div class="search-elem col-md-3">
+          <h4 class="search-elem-header">
+            <!-- <input type="checkbox"> Food -->
+            <el-checkbox v-model="food">Food</el-checkbox>
+          </h4>
+        </div>
+
+        <div class="search-elem col-md-2">
+          <h4 class="search-elem-header">
+            <!-- <input type="checkbox"> Accommodation -->
+            <el-checkbox v-model="accommodation">Accommodation</el-checkbox>
+          </h4>
+        </div>
+
+      </div>
+
+      <div class="row row-3">
+        <div class="col-md-4 col-md-offset-4">
+          <button type="button" class="btn btn-primary btn-block mp-background"><h3 class="no-margin">Search</h3></button>
+        </div>
+      </div>
+    </div>
+
+  </script>
+
+
+  <script type="text/x-template" id="search-result-template">
+    <div class="search-result box-shadow">
+      <div class="row search-result-options">
+        <div class="col col-md-4">
+          <div class="row">
+            <h4 class="pull-left no-margin"><strong>Sort by &nbsp;</strong></h4>
+            <h4 class="pull-left no-margin">Lowest price first <i class="fa fa-chevron-down" aria-hidden="true"></i></h4>
+          </div>
+        </div>
+        <div class="col col-md-3 pull-right">
+          <div class="row">
+            <!-- <input class="pull-left" type="checkbox">
+            <h4 class="pull-left no-margin">&nbsp;Show unavailable rooms</h4> -->
+              <div class="btn-group">
+                <h4 class="no-margin pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Show Only Available Rooms <span class="caret"></span></h4>
+                <!-- <button type="button" class="btn btn-danger">Show Only Available Rooms</button>
+                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button> -->
+                <ul class="dropdown-menu">
+                  <li><a href="#">Show Only Unavailable Rooms</a></li>
+                  <li><a href="#">Show Only Available Rooms</a></li>
+                  <li><a href="#">Show All Rooms</a></li>
+                </ul>
+              </div>
+          </div>
+        </div>
+      </div>
+      <!-- End of search-result-options -->
+
+
+      <result-items></result-items>
+
+      <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+            </div>
+            <div class="modal-body">
+              <p>
+                Lorem ipsum dolor sit amet, per ei scripta adipiscing, pri id hinc fabellas. Nulla vitae inciderint eu has, ne populo maiorum fabellas mel. Nam dicta scripta euripidis cu. Id pri diceret labores, mea id nullam voluptatum dissentiet. Euismod tractatos te vix, mei eu mucius laoreet intellegebat, eu unum solet eloquentiam ius.
+                Nihil complectitur eum no. Amet forensibus mel an. Id dicit eligendi eloquentiam sed, an nam vidit assentior theophrastus. Natum partiendo vel an, nec eu vidisse meliore. Oratio molestie ei eos, eam errem nullam invenire no, eum aperiam denique postulant ex.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, per ei scripta adipiscing, pri id hinc fabellas. Nulla vitae inciderint eu has, ne populo maiorum fabellas mel. Nam dicta scripta euripidis cu. Id pri diceret labores, mea id nullam voluptatum dissentiet. Euismod tractatos te vix, mei eu mucius laoreet intellegebat, eu unum solet eloquentiam ius.
+                Nihil complectitur eum no. Amet forensibus mel an. Id dicit eligendi eloquentiam sed, an nam vidit assentior theophrastus. Natum partiendo vel an, nec eu vidisse meliore. Oratio molestie ei eos, eam errem nullam invenire no, eum aperiam denique postulant ex.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, per ei scripta adipiscing, pri id hinc fabellas. Nulla vitae inciderint eu has, ne populo maiorum fabellas mel. Nam dicta scripta euripidis cu. Id pri diceret labores, mea id nullam voluptatum dissentiet. Euismod tractatos te vix, mei eu mucius laoreet intellegebat, eu unum solet eloquentiam ius.
+                Nihil complectitur eum no. Amet forensibus mel an. Id dicit eligendi eloquentiam sed, an nam vidit assentior theophrastus. Natum partiendo vel an, nec eu vidisse meliore. Oratio molestie ei eos, eam errem nullam invenire no, eum aperiam denique postulant ex.
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </script>
+
+  <script type="text/x-template" id="result-items-template">
+    <div class="row no-margin">
+      <result-item v-for="resultItem in resultItems" :key="resultItem.id" :resultItem="resultItem" ></result-item>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="result-item-template">
+    <div class="col-md-12 result-item box-shadow-light">
+      <div class="row">
+        <div class="roomAvailability">
+          <h5>Available</h5>
+          <div class="roomAvailabilityTriangle roomAvailable"></div>
+        </div>
+        <div class="col-md-4 result-item-left">
+          <!-- <div class="full-width room-header">
+            <div class="row no-margin">
+              <h4 class="pull-left">{{resultItem.roomName}}</h4>
+              <h4 class="pull-right">30 <i class="fa fa-users" aria-hidden="true"></i></h4>
+            </div>
+          </div> -->
+          <div class="full-width room-photos">
+            <room-photos :id="resultItem.id"></room-photos>
+          </div>
+        </div>
+        <div class="col-md-6 result-item-right">
+          <!-- <div class="full-width roompackage-header">
+            <h4 class="col-md-6 text-center roompackage-right-header" @click="switchRoomPackage('room')" :class="{ 'header-active': tabSelected=='room'}">Room</h4>
+            <h4 class="col-md-6 text-center" @click="switchRoomPackage('package')" :class="{ 'header-active': tabSelected=='package'}">Packages</h4>
+          </div> -->
+          <div class="full-width roompackage-content">
+            <transition
+                        enter-active-class="animated zoomIn"
+                        leave-active-class="animated zoomOut"
+                        mode="out-in"
+            >
+                <room-brief v-if="tabSelected=='room'"></room-brief>
+                <packages v-else :id="resultItem.id"></packages>
+            </transition>
+          </div>
+        </div>
+
+        <div class="col-md-2 brief brief-price">
+          <div class="row no-margin">
+            <transition
+                        enter-active-class="animated zoomIn"
+                        leave-active-class="animated zoomOut"
+                        mode="out-in"
+            >
+                <h3 key="perHour" v-if="tabSelected=='room'" class="full-width text-center mp-text-color">40e/h</h3>
+                <h3 key="perPerson" v-else class="full-width text-center mp-text-color">45e/person</h3>
+            </transition>
+          </div>
+          <br>
+          <div class="row no-margin">
+            <button type="button" class="btn btn-primary full-width mp-background" v-if="tabSelected=='room'">Select Room</button>
+            <button type="button" class="btn btn-primary full-width mp-background" v-else>Select Package</button>
+          </div>
+          <br>
+          <div class="row no-margin">
+            <label class="btn btn-default full-width no-padding">
+                <transition enter-active-class="animated fadeIn"
+                            leave-active-class="animated fadeOut"
+                            mode="out-in"
+                >
+                  <h5 class="no-margin switchRPButton" v-if="tabSelected=='room'" @click="switchRoomPackage('package')" key="room">Show Packages</h5>
+
+                  <h5 class="no-margin switchRPButton" v-else @click="switchRoomPackage('room')" key="package">Show Room Info</h5>
+                </transition>
+            </label>
+          </div>
+          <br>
+          <div class="row no-margin">
+            <el-switch
+              v-model="showRoom"
+              :width= 120
+              on-text="Room Info"
+              off-text="Packages"
+              on-color="#13ce66"
+              off-color="#0073e6">
+            </el-switch>
+          </div>
+        </div>
+
+
+      </div>
+      <!--End of class row -->
+    </div>
+  </script>
+
+  <script type="text/x-template" id="room-photos-template">
+    <div :id="'carousel-photos-' + id" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li :data-target="'#carousel-photos-' + id" data-slide-to="0" class="active"></li>
+        <li :data-target="'#carousel-photos-' + id" data-slide-to="1"></li>
+        <li :data-target="'#carousel-photos-' + id" data-slide-to="2"></li>
+      </ol>
+
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <img src="assets/room1.jpg" alt="...">
+          <div class="carousel-caption">
+            Photo 1
+          </div>
+        </div>
+        <div class="item">
+          <img src="assets/room2.jpg" alt="...">
+          <div class="carousel-caption">
+            Photo 2
+          </div>
+        </div>
+        <div class="item">
+          <img src="assets/room3.jpg" alt="...">
+          <div class="carousel-caption">
+            Photo 3
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <a class="left carousel-control" :href="'#carousel-photos-' + id" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" :href="'#carousel-photos-' + id" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </script>
+
+
+  <script type="text/x-template" id="packages-template">
+    <div class="row no-margin">
+      <div :id="'carousel-packages-' + id" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators package-indicators">
+          <li :data-target="'#carousel-packages-' + id" data-slide-to="0" class="active"></li>
+          <li :data-target="'#carousel-packages-' + id" data-slide-to="1"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+          <div class="item active">
+            <div class="row no-margin">
+              <package-brief></package-brief>
+            </div>
+            <div class="carousel-caption">
+              <!-- Halfday Morning -->
+            </div>
+          </div>
+          <div class="item">
+            <div class="row no-margin">
+              <package-brief></package-brief>
+            </div>
+            <div class="carousel-caption">
+              <!-- Halfday Evening -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <!-- <a class="left carousel-control" href="#carousel-example-packages" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-packages" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a> -->
+      </div>
+
+    </div>
+  </script>
+
+
+  <script type="text/x-template" id="room-brief-template">
+    <div class="row no-margin room-brief">
+
+      <div class="col-md-6 brief brief-description">
+        <div class="row no-margin">
+          <h4><strong>Room Name</strong></h4></div>
+        <div class="row no-margin">
+          <h5><i class="fa fa-calendar-check-o" aria-hidden="true"></i> 8.00-18.00 booking time</h5></div>
+        <div class="row no-margin">
+          <h5><i class="fa fa-arrows" aria-hidden="true"></i> 4x13m ( height 3m)</h5></div>
+        <div class="row no-margin">
+          <h5><i class="fa fa-sort" aria-hidden="true"></i> 3rd floor</h5></div>
+        <div class="row no-margin">
+          <img src="assets/SeatingOrders.png" alt="" style="width:100%;">
+        </div>
+      </div>
+
+      <div class="col-md-6 brief brief-included">
+        <div class="row no-margin">
+          <h4>Included :</h4></div>
+        <div class="row no-margin">
+          <h5><i class="fa fa-check" aria-hidden="true"></i> LCD Screen/TV 55in</h5></div>
+        <div class="row no-margin">
+          <h5><i class="fa fa-check" aria-hidden="true"></i> Whiteboard</h5></div>
+        <div class="row no-margin">
+          <h5><i class="fa fa-check" aria-hidden="true"></i> Air conditioner</h5></div>
+        <div class="row no-margin">
+          <a href="" data-toggle="modal" data-target=".bs-example-modal-lg"><h5>More detail</h5></a></div>
+      </div>
+
+      <!-- <div class="col-md-4 brief brief-price text-center">
+        <div class="row no-margin"><h3>40e/h</h3></div>
+        <br>
+        <div class="row no-margin"><button type="button" class="btn btn-primary">Select Room</button></div>
+        <br>
+        <div class="row no-margin">
+          <h3 v-if="tabSelected=='room'" @click="switchRoomPackage('room')">Show Room Info</h3>
+          <h3 v-else @click="switchRoomPackage('package')">Show Packages</h3>
+        </div>
+      </div> -->
+
+    </div>
+  </script>
+
+
+  <script type="text/x-template" id="package-brief-template">
+    <div class="row no-margin full-height package-brief">
+
+      <div class="col-md-6 brief brief-description">
+        <div class="row no-margin">
+          <h4>Halfday Morning (8.00am-12.00pm )</h4>
+        </div>
+        <div class="row no-margin">
+          <p class="text-justify">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-6 brief brief-included">
+        <div class="row no-margin">
+          <h4>Included :</h4></div>
+        <div class="row no-margin">
+          <h5><i class="fa fa-check" aria-hidden="true"></i> Meeting room hire</h5></div>
+        <div class="row no-margin">
+          <h5><i class="fa fa-check" aria-hidden="true"></i> 1x Coffee/Tea break</h5></div>
+        <div class="row no-margin">
+          <h5><i class="fa fa-check" aria-hidden="true"></i> Something else</h5></div>
+        <div class="row no-margin">
+          <a href="" data-toggle="modal" data-target=".bs-example-modal-lg"><h5>More detail</h5></a></div>
+      </div>
+
+      <!-- <div class="col-md- text-center brief brief-price">
+        <div class="row no-margin"><h3>250e/half-day</h3></div>
+        <br>
+        <div class="row no-margin"><button type="button" class="btn btn-primary">Select Package</button></div>
+        <br>
+        <div class="row no-margin"><a href=""><h4>More Detail</h4></a></div>
+      </div> -->
+
+    </div>
+  </script>
+
+
+
+  <script src="src/js/model.js"></script>
+  <script src="src/js/components.js"></script>
+  <script src="src/js/main.js"></script>
+
+</body>
+
+</html>

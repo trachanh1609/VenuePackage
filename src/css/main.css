@@ -1,0 +1,248 @@
+body {
+  font-family: 'Open Sans';
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+.pointer:hover{
+  cursor:pointer;
+}
+.mp-background{
+  background-color: #0073e6;
+}
+.mp-text-color{
+  color: #0073e6;
+}
+#mp-container {
+  width: 1024px;
+  margin: auto;
+}
+.border {
+  border: 0.2px solid #b3b3b3;
+}
+.full-width{
+  width: 100%;
+}
+.box-shadow{
+  box-shadow: 0 0px 2px 0 rgba(0,0,0,0.14), 0 0px 8px 0 rgba(0,0,0,0.12), 0 0px 1px -2px rgba(0,0,0,0.2);
+}
+.box-shadow-light{
+  box-shadow: 0 0px 4px 0 #ddd;
+}
+.full-height{
+  height: 100%;
+}
+.no-margin{
+  margin: 0;
+}
+.no-padding {
+  padding: 0 !important;
+}
+.inline {
+  display: inline;
+}
+.header {
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 0px;
+}
+
+#heroImg{
+  width: 100%;
+}
+
+#app {
+  width: 100%;
+  /*width: 1024px;
+  margin: auto;*/
+  /*border: 0.5px solid gray; */
+  padding: 0px;
+}
+
+#search-input-box {
+  padding: 20px 20px 20px 20px;
+  /*border: 0.5px solid gray;*/
+  /*box-shadow: 2px 2px 10px #b3b3b3;*/
+  /*box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);*/
+}
+
+#search-input-box .row-1 {
+  margin-bottom: 10px;
+}
+#search-input-box .row-2 {
+  margin-bottom: 10px;
+}
+#search-input-box .row-2 {
+  margin-bottom: 10px;
+}
+
+
+.search-elem {
+  display: inline-block;
+
+}
+
+.search-elem-header{
+
+}
+
+.search-elem-input{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 0.5px solid gray;
+}
+
+.search-result {
+  padding: 20px 20px 0 20px;
+  margin-top: 20px;
+}
+
+.search-result-options{
+  margin: 0px 0px 20px 0px;
+}
+
+.result-item{
+  width: 100%;
+  height: 250px;
+  margin-bottom: 20px;
+
+}
+
+.result-item:hover {
+  box-shadow: 1px 1px 5px #b3b3b3;
+  border: none;
+}
+.roomAvailability {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width:120px;
+  height:60px;
+}
+.roomAvailability h5{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index:11;
+  color:white;
+}
+
+.roomAvailability .roomAvailabilityTriangle{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index:10;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 60px 120px 0 0;
+  line-height: 0px;
+  _border-color: #92d600 #000000 #000000 #000000;
+  _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+}
+
+.roomAvailability .roomAvailable {
+  border-color: #92d600 transparent transparent transparent;
+}
+.roomAvailability .roomNotAvailable{
+  border-color: red transparent transparent transparent;
+}
+
+.result-item-left {
+  height: 100%;
+  padding: 0;
+}
+
+.result-item-right{
+  height: 100%;
+  padding: 0;
+}
+
+.room-header{
+  height: 50px;
+  padding: 0px 10px 0px 10px;
+  background-color: #0080FF;
+  color: white;
+
+}
+.roompackage-header{
+  height: 50px;
+  border-top: 0.5px solid gray;
+  border-bottom: 0.5px solid gray;
+  cursor: pointer;
+}
+
+.roompackage-header .header-active {
+  color: #0073E6;
+  font-weight: bold;
+}
+
+.room-photos{
+  height: 250px;
+}
+.roompackage-content{
+  height: 250px;
+}
+
+.carousel-inner .item img {
+  width: auto;
+  height:100%;
+}
+.brief-price{
+  box-shadow: -1px 0px 5px -2px #ddd;
+  padding: 20px !important;
+}
+
+.roompackage-right-header{
+  border-right: 1px solid gray;
+}
+
+.switchRPButton{
+  padding: 10px;
+}
+
+.package-brief, .room-brief{
+  padding: 0px;
+  height: 100%;
+}
+
+.brief {
+  height: 100%;
+  padding: 20px 10px 10px 30px;
+}
+
+.package-indicators .active{
+  background-color: black ;
+}
+.package-indicators li {
+  border: 1px solid black;
+}
+
+.el-input-number {
+  width: 100% !important;
+}
+.el-input-number__decrease, .el-input-number__increase{
+  height: 34px !important;
+}
+.el-icon-minus , .el-icon-plus {
+  line-height: 34px !important;
+}
+/*.left-column {
+  display: inline-block;
+  float:left;
+  width: 60%;
+  height: 100%;
+  border: 0.5px solid gray;
+}
+
+.right-column {
+  display: inline-block;
+  float:left;
+  width: 40%;
+  height: 100%;
+  border: 0.5px solid gray;
+}*/
