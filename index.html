@@ -1,5 +1,5 @@
+<!DOCTYPE>
 <html>
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,17 +14,13 @@
   <script src="lib/vue.js"></script>
 
   <!-- Vue Element http://element.eleme.io/#/en-US/component/installation -->
-  <!-- import CSS -->
   <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
-  <!-- import JavaScript -->
   <script src="https://unpkg.com/element-ui/lib/index.js"></script>
   <!-- Default of Element UI is Chinese, Setting to EN below  -->
   <script src="https://unpkg.com/element-ui/lib/umd/locale/en.js"></script>
   <script>
     ELEMENT.locale(ELEMENT.lang.en)
   </script>
-  <!-- Add this after vue.js -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-strap/1.1.37/vue-strap.js"></script> -->
 
 </head>
 
@@ -38,7 +34,6 @@
       <search-result></search-result>
 
     </div>
-    <!-- End of app -->
 
   </div>
   <!-- End of Container -->
@@ -50,7 +45,6 @@
 
 
 
-  <div id="templates"></div>
 
   <!-- Templates are below -->
 
@@ -143,14 +137,12 @@
 
         <div class="search-elem col-md-3">
           <h4 class="search-elem-header">
-            <!-- <input type="checkbox"> Food -->
             <el-checkbox v-model="food">Food</el-checkbox>
           </h4>
         </div>
 
         <div class="search-elem col-md-2">
           <h4 class="search-elem-header">
-            <!-- <input type="checkbox"> Accommodation -->
             <el-checkbox v-model="accommodation">Accommodation</el-checkbox>
           </h4>
         </div>
