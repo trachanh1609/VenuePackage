@@ -1,0 +1,5 @@
+test:
+  override:
+    - mkdir TestFolder
+  post:
+    - touch TestFolder/hello.txt
